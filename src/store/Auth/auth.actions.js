@@ -6,13 +6,19 @@ import {
   LOGOUT
 } from "./auth.types";
 
-export const login = (creds) => (dispatch) => {
+export const loginAPI = (data) => (dispatch) => {
   dispatch({ type: LOGIN_LOADING });
-  axios.post("https://reqres.in/api/login", creds).then((re) => {
-    dispatch({ type: LOGIN_SUCCESS });
-  });
-
-  dispatch({ type: LOGIN_ERROR });
+  axios
+    .post("https://reqres.in/api/login", {
+      email: data.email,
+      password: data.password
+    })
+    .then((r) => {
+      dispatch({ type: LOGIN_SUCCESS, payload: r.data });
+    })
+    .catch(() => {
+      dispatch({ type: LOGIN_ERROR });
+    });
 };
 export const loginout = () => (dispatch) => {
   dispatch({ type: LOGOUT });

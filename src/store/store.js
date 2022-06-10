@@ -4,5 +4,12 @@ import {
   compose,
   combineReducers
 } from "redux";
+import thunk from "redux-thunk";
+import authreducer from "./Auth/auth.reducer";
+import feedreducer from "./Feed/feed.reducer";
 
-export const store = legacy_createStore();
+const rootreducer = combineReducers({
+  auth: authreducer,
+  feed: feedreducer
+});
+export const store = legacy_createStore(rootreducer, applyMiddleware(thunk));
