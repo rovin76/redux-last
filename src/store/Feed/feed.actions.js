@@ -8,7 +8,7 @@ import {
 export const getFeedsAPI = () => (dispatch) => {
   dispatch({ type: GET_FEEDS_LOADING });
   axios
-    .post("http://localhost:8080/feeds")
+    .get("http://localhost:8080/feeds")
     .then((r) => {
       dispatch({ type: GET_FEEDS_SUCCESS, payload: r.data });
     })

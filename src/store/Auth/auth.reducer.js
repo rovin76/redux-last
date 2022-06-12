@@ -5,11 +5,13 @@ import {
   LOGOUT
 } from "./auth.types";
 
+let token = localStorage.getItem("token");
+
 const intitialState = {
   loading: false,
   error: false,
-  isAuth: false,
-  token: ""
+  isAuth: !!token,
+  token: token
 };
 
 function authreducer(state = intitialState, { type, payload }) {
@@ -17,6 +19,7 @@ function authreducer(state = intitialState, { type, payload }) {
     case LOGIN_LOADING:
       return { ...state, loading: true, error: false };
     case LOGIN_SUCCESS:
+      localStorage.setItem("token", payload.token);
       return {
         ...state,
         loading: false,
@@ -28,6 +31,7 @@ function authreducer(state = intitialState, { type, payload }) {
       return { ...state, loading: false, error: true, isAuth: false };
     }
     case LOGOUT: {
+      localStorage.removeItem("token");
       return { ...state, isAuth: false };
     }
     default:

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginAPI } from "../store/Auth/auth.actions";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.auth);
   const [loginCreds, setLoginCreds] = useState({
@@ -26,6 +27,12 @@ const Login = () => {
     dispatch(loginAPI(loginCreds));
     navigate("/");
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(location.pathname || "/", { replace: true });
+    }
+  }, [isAuth]);
   return (
     <div>
       Login

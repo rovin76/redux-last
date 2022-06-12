@@ -20,6 +20,6 @@ export const loginAPI = (data) => (dispatch) => {
       dispatch({ type: LOGIN_ERROR });
     });
 };
-export const loginout = () => (dispatch) => {
+export const loginoutAPI = () => (dispatch) => {
   dispatch({ type: LOGOUT });
 };
